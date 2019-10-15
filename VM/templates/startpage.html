@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+		<div class="center-align card blue-grey lighten-5">
+              <div class="card-action">
+                <div class="center-align">
+                 <a href="{{ url_for('login') }}"><b><span class="card-title"><h4><b>Login</h4></span><b></a>
+                </div>
+              </div>
+            </div>
+         </div>
+
+
+        <div class="center-align card blue-grey lighten-5">
+              <div class="card-action">
+                <div class="center-align">
+                 <span class="card-title"><b><h6>Not registered yet? Make an account</h6></span>
+                 <a href="{{ url_for('register') }}"><b><span class="card-title"><h4><b>Register</h4></span><b></a>
+
+                </div>
+              </div>
+        </div>
+
+
+
+{% endblock content %}
