@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from SH.trained_model2 import SpamClassifier
+
 #from flask_app import app as application
 
 app = Flask(__name__)
@@ -18,5 +18,5 @@ bcrypt= Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
-from SH import routes
+from VM import routes
 print(1)
