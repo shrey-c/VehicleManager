@@ -3,7 +3,7 @@ import secrets
 from VM import app, db, bcrypt
 from PIL import Image
 from flask import Flask, session, escape, render_template, url_for, flash, redirect, request
-from VM.forms import RegisterForm, AdminRegisterForm, CarRegistration, RegisterForm, LoginForm, AdminLoginForm
+from VM.forms import RegisterForm, AdminRegisterForm, CarRegistration, RegisterForm, LoginForm, AdminLoginForm,RequestForm
 from VM.models import User, Admin, Car, Request
 import hashlib #for sha512
 from flask_login import login_user, current_user, logout_user, login_required
@@ -58,7 +58,7 @@ def register_admin():
         db.session.add(admin)
         db.session.commit()
         flash(f'Success! Please fill in the remaining details', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('login_admin'))
     return render_template('regFormAdmin.html', form=form)
 
 
@@ -106,11 +106,11 @@ def login_admin():
             s = s+a
         now_hash = (str)((hashlib.sha512((str(s).encode('utf-8'))+((form.password.data).encode('utf-8')))).hexdigest())
         #if user and bcrypt.check_password_hash(user.password, form.password.data):
-        if (user and (user.password==now_hash)):
+        if (admin and (admin.password==now_hash)):
 
-            login_user(user, remember=form.remember.data)
+            login_user(admin, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(url_for('account'))
+            return redirect(url_for('account_admin'))
         else:
             print('halaaa2')
             flash('Login Unsuccessful. Please check email and password', 'danger')
@@ -131,41 +131,53 @@ def account():
 
     return render_template('home.html', title='Account',current_user=current_user)
 
+@app.route("/accountAdmin", methods= ['POST', 'GET'])
+@login_required
+def account_admin():
+
+    return render_template('homeAdmin.html', title='Account',current_user=current_user)
+
 @app.route("/carRegistration", methods= ['POST', 'GET'])
 @login_required
-def carRegistration():
+def car_Registration():
     form = CarRegistration(request.form)
     if form.validate_on_submit():
-        car = Car(user_id=current_user.id,car_plate=car_plate, car_regNumber=car_regNumber, date=date, first=first, middle=middle, last=last, state=state, mobile=mobile, r_status=0)
-        requests=Request(Admin_id=1,user_id=current_user.id, r_status=0)
+        car = Car(user_id=current_user.id,car_plate=form.car_plate.data, car_regNumber=form.car_regNumber.data, date=form.date.data, first=form.first.data, middle=form.middle.data, last=form.last.data, state=form.state.data, mobile=form.mobile.data, r_status=0)
+        requests=Request(admin_id=1,user_id=current_user.id, r_status=0)
         db.session.add(car)
-        db.session.add(request)
+        db.session.add(requests)
         db.session.commit()
         flash(f'Success! Please fill in the remaining details', 'success')
         return redirect(url_for('account'))
     return render_template('carRegistration.html', title= "Car Registration", form=form, current_user=current_user)
 
 
-@app.route("/adminPage", methods=['POST', 'GET'])
+@app.route("/requestsPage", methods=['POST', 'GET'])
 @login_required
 def admin():
-    requests=Request.query.filter_by(r_status=1)
-    status=[]
-    for request in requests:
-        status=status.append((request.user_id, request.r_status))
-        user = User.query.filter_by(id=request.user_id)
+    requests=Request.query.filter_by(r_status=0).all()
+    print(requests)
+    form=RequestForm(request.form)
+    status=list([])
+    for license in requests:
+        print(license)
+        status.append((license.user_id,license.r_status))
+        print(license.user_id)
+        user = User.query.filter_by(id=license.user_id).first()
+        print(status)
+        print(user)
         if form.validate_on_submit():
                 if form.invite_status.data=='1':
                     user.r_status=1
-                    request.r_status=1
+                    license.r_status=1
                     db.session.commit()
                 elif  form.invite_status.data=='0':
                     user.r_status=0
-                    request.r_status=0
+                    license.r_status=0
                     db.session.commit()
-    return render_template('requestPage.html', requests=requests, status=status)
+    return render_template('requestPage.html', requests=requests, status=status, form=form)
 
-@app.route("/status", methods= ['POST', 'GET'])
+@app.route("/viewstatus", methods= ['POST', 'GET'])
 @login_required
 def status():
     admin=Admin.query.filter_by(id=current_user.id).first()

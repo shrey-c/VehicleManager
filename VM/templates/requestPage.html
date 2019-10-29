@@ -8,32 +8,38 @@
 
 
 {% else %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    <ul>
-                        {% for user in status %}
-                            <h6>Select Invite Status</h6>
-                                {% if form.invite_status.errors %}
-                                    {{ form.invite_status(class="form-control form-control-lg is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.invite_status.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ form.invite_status(class="form-control form-control-lg") }}
-                                {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </fieldset>
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                <ul>
+                    <div>
+                        {% for user in status %}
+                        <div>
+                            <h6>Select Invite Status</h6>
+                            {% if form.invite_status.errors %}
+                            {{ form.invite_status(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.invite_status.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <div>
+                                {{ form.invite_status(class="form-control form-control-lg") }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </ul>
             </div>
-        </form>
-    </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
 {% endif %}
 {% endblock content %}

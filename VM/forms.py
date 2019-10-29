@@ -50,10 +50,9 @@ class AdminRegisterForm(FlaskForm):
 
 
 class CarRegistration(FlaskForm):
-    user_id = IntegerField("ID no.", validators=[DataRequired()])
     car_plate = StringField("Car Plate ID", validators=[DataRequired()])
-    car_regNumber=IntegerField("Car Registration Number",  validators=[DataRequired()])
-    date = DateField("Date of Registration",  validators=[DataRequired()])
+    car_regNumber=StringField("Car Registration Number",  validators=[DataRequired()])
+    date = StringField("Date of Registration",  validators=[DataRequired()])
     first = StringField("First Name",  validators=[DataRequired()])
     middle = StringField("Middle Name",  validators=[DataRequired()])
     last =StringField("Last Name",  validators=[DataRequired()])
