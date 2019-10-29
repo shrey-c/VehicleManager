@@ -1,45 +1,106 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Xlight Bootstrap Responsive HTML5/CSS3 Template</title>
+  <meta name="description" content="Xlight Bootstrap Responsive HTML5/CSS3 Template">
+  <meta name="author" content="Andsolutions.it">
+  <meta name="description" content="">
+  
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/animate.min.css') }}" rel="stylesheet" > 
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet"> 
+  <link href="{{ url_for('static', filename='css/prettyPhoto.css') }}" rel="stylesheet">
+  
+  <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">  
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet" class="colors">
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
 
-    <body>
+  <!-- Google Font -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+  
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="images/ico/favicon.ico">  
+  <link rel="apple-touch-icon" href="images/ico/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='images/ico/apple-touch-icon-72.png')}}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='images/ico/apple-touch-icon-114.png')}}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='images/ico/apple-touch-icon-144.png')}}">
+</head>
 
-       <nav class="nav-extended">
-          <div class="nav-wrapper">
-            <a href="#" class="brand-logo">SpamHam.com</a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('account') }}">Hi,  {{current_user.email_id}} </a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-              {% else %}
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('register') }}">Register</a></li>
 
-              {% endif %}
-            </ul>
-          </div>
-          <div class="nav-content">
-            <ul class="tabs tabs-transparent">
 
-            </ul>
+<body data-spy="scroll" data-target="#mynav" data-offset="85">
+
+  <!-- Preloader --> 
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+  </div>
+  <!-- End Preloader -->
+
+  <header>
+
+    <!-- Bootstrap Menu -->
+    
+        <nav class="nav-extended">
+          <div class="container">
+            <div class="row">
+              <div id="mynav">
+                <ul class="nav navbar-nav main-nav-list">
+                  {% if current_user.is_authenticated %}
+                  <li><a href="{{ url_for('home') }}">Home</a></li>
+                  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                  {% else %}
+                  <li><a href="{{ url_for('home') }}">Home</a></li>
+                  <li><a href="{{ url_for('register') }}">Sign Up</a></li>
+                  <li><a href="{{ url_for('login') }}">Login</a></li>
+                  <li><a href="{{ url_for('register_admin') }}">Admin Sign Up</a></li>
+                  <li><a href="{{ url_for('login_admin') }}">Admin Login</a></li>
+                  {% endif %}
+                </ul>
+              </div>    
+            </div>
           </div>
         </nav>
+<hr>
+<br>
+    <!-- End Bootstrap Menu -->
+  </header>
+
+  <body>
 
 
+    {% block content %}{% endblock %}
+    <!-- Scroll to Top  -->
+    <a href="#" class="scroll-up"><i class="fa fa-arrow-up"></i></a>
+    <!-- End Scroll To Top  -->
 
-        {% block content %}{% endblock %}
-
-     <!--JavaScript at end of body for optimized loading-->
-      <script type="text/javascript" src="/static/js/materialize.min.js"></script>
-      <script type="text/javascript" src="/static/js/collapsible.js"></script>
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/retina.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/jquery.easing.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/wow.min.js')}}"></script>  
+      <script src="{{ url_for('static', filename='js/waypoints.min.js')}}"></script>  
+      <script src="{{ url_for('static', filename='js/jquery.countTo.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/jquery.mixitup.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/jquery.prettyPhoto.js')}}"></script> 
+      <script src="{{ url_for('static', filename='js/jquery.knob.min.js')}}"></script>  
+      <script src="{{ url_for('static', filename='js/jquery.validate.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js')}}"></script>
     </body>
-  </html>
+    </html>

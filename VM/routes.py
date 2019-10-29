@@ -16,9 +16,9 @@ from sqlalchemy import or_ , and_
 
 
 @app.route("/")
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 def home():
-    return render_template('startpage.html')
+    return render_template('index.html')
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -93,7 +93,7 @@ def login():
 
 
 @app.route("/adminLogin", methods=['GET', 'POST'])
-def adminLogin():
+def login_admin():
     form = AdminLoginForm(request.form)
     if form.validate_on_submit():
         admin = Admin.query.filter_by(email_id=form.email_id.data).first()
