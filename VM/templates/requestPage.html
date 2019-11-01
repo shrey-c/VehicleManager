@@ -13,7 +13,7 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <div class="form-group">
-                <ul>
+             
                     <div>
                         {% for user in status %}
                         <div>
@@ -27,13 +27,13 @@
                             </div>
                             {% else %}
                             <div>
-                                {{ form.invite_status(class="form-control form-control-lg") }}
+                                {{ form.invite_status(class="form-control") }}
                             </div>
                             {% endif %}
                         </div>
                         {% endfor %}
                     </div>
-                </ul>
+             
             </div>
         </fieldset>
         <div class="form-group">
