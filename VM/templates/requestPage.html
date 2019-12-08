@@ -13,27 +13,38 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <div class="form-group">
-             
+
+                <div>
+
                     <div>
-                        {% for user in status %}
-                        <div>
-                            <h6>Select Invite Status</h6>
-                            {% if form.invite_status.errors %}
-                            {{ form.invite_status(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.invite_status.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            <div>
-                                {{ form.invite_status(class="form-control") }}
-                            </div>
-                            {% endif %}
+                        <h6>Select Invite Status</h6>
+                        {{car.user_id}}<br>
+                        {{car.car_plate}}<br>
+                        {{car.car_regNumber}}<br>
+                        {{car.date}}<br>
+                        {{car.first}}<br>
+                        {{car.middle}}<br>
+                        {{car.last}}<br>
+                        {{car.state}}<br>
+                        {{car.mobile}}<br>
+                        {{car.r_status}}<br>
+                        {% if form.invite_status.errors %}
+                        {{ form.invite_status() }}
+                        <div class="invalid-feedback">
+                            {% for error in form.invite_status.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
+                        {% else %}
+                        <div>
+                            user.
+                            {{ form.invite_status() }}
+                        </div>
+                        {% endif %}
                     </div>
-             
+
+                </div>
+
             </div>
         </fieldset>
         <div class="form-group">
@@ -41,5 +52,6 @@
         </div>
     </form>
 </div>
+
 {% endif %}
 {% endblock content %}

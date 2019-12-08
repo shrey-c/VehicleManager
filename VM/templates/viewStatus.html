@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if status == [] %}
+<div class = "content-section card"><br>
+    <h4> You have no requests. </h4><br>
+</div>
+
+
+{% else %}
+<div class="content-section">
+    <div class="blog-image">
+        <div class ="container">
+        {% for car in cars%}
+        
+        <div class="blog-image">
+
+            <br><br>
+            {{car.user_id}}<br>
+            {{car.car_plate}}<br>
+            {{car.car_regNumber}}<br>
+            {{car.date}}<br>
+            {{car.first}}<br>
+            {{car.middle}}<br>
+            {{car.last}}<br>
+            {{car.state}}<br>
+            {{car.mobile}}<br>
+            {{car.r_status}}<br>
+            <br><br>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

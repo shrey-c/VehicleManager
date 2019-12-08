@@ -58,7 +58,7 @@ class CarRegistration(FlaskForm):
     last =StringField("Last Name",  validators=[DataRequired()])
     state = StringField("Enter State",  validators=[DataRequired()])
     mobile = IntegerField("Enter Mobile No.",  validators=[DataRequired()])
-    submit = SubmitField('Login')
+    submit = SubmitField('Submit')
 
 
 

@@ -159,29 +159,43 @@ def admin():
     print(requests)
     form=RequestForm(request.form)
     status=list([])
+    car=list([])
     for license in requests:
         print(license)
         status.append((license.user_id,license.r_status))
         print(license.user_id)
         user = User.query.filter_by(id=license.user_id).first()
+        car = Car.query.filter_by(user_id=user.id).first()
         print(status)
         print(user)
+        print(car)
         if form.validate_on_submit():
                 if form.invite_status.data=='1':
                     user.r_status=1
                     license.r_status=1
+                    car.r_status=1
                     db.session.commit()
                 elif  form.invite_status.data=='0':
                     user.r_status=0
                     license.r_status=0
+                    car.r_status=0
                     db.session.commit()
-    return render_template('requestPage.html', requests=requests, status=status, form=form)
+    return render_template('requestPage.html', requests=requests, status=status, form=form,car=car)
 
 @app.route("/viewstatus", methods= ['POST', 'GET'])
 @login_required
-def status():
+def statusAdmin():
     admin=Admin.query.filter_by(id=current_user.id).first()
-    return render_template('requestPage.html')
+    requests=Request.query.all()
+    cars=Car.query.all()
+    return render_template('viewStatus.html', requests=requests,cars=cars)
+
+@app.route("/viewstatususer", methods= ['POST', 'GET'])
+@login_required
+def statusUser():
+    user=User.query.filter_by(id=current_user.id).first()
+    cars=Car.query.filter_by(user_id=user.id).all()
+    return render_template('viewStatusUser.html', requests=requests,cars=cars)
 
 
 
